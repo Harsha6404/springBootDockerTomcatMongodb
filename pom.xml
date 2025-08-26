@@ -1,43 +1,44 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 
+         http://maven.apache.org/xsd/maven-4.0.0.xsd">
 
- <build>
-    <plugins>
-        <!-- Spring Boot Plugin -->
-        <plugin>
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>com.example</groupId>
+    <artifactId>springBootDockerTomcatMongodb</artifactId>
+    <version>1.0.0</version>
+    <packaging>war</packaging>
+
+    <name>Spring Boot Docker Tomcat MongoDB</name>
+
+    <properties>
+        <java.version>17</java.version>
+    </properties>
+
+    <dependencies>
+        <!-- Example dependencies -->
+        <dependency>
             <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-maven-plugin</artifactId>
-        </plugin>
+            <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-mongodb</artifactId>
+        </dependency>
+    </dependencies>
 
-        <!-- Latest WAR plugin -->
-        <plugin>
-            <groupId>org.apache.maven.plugins</groupId>
-            <artifactId>maven-war-plugin</artifactId>
-            <version>3.3.2</version>
-        </plugin>
-
-        <!-- Docker Plugin -->
-        <plugin>
-            <groupId>com.spotify</groupId>
-            <artifactId>docker-maven-plugin</artifactId>
-            <version>0.4.11</version>
-            <configuration>
-                <imageName>${docker.image.prefix}/${project.artifactId}</imageName>
-                <dockerDirectory>src/main/docker</dockerDirectory>
-                <dockerHost>http://172.17.0.1:2375</dockerHost>
-                <forceTags>true</forceTags>
-                <imageTags>
-                    <imageTag>${project.version}</imageTag>
-                    <imageTag>latest</imageTag>
-                </imageTags>
-                <serverId>docker-hub</serverId>
-                <registryUrl>https://hub.docker.com/</registryUrl>      
-                <resources>
-                    <resource>
-                        <targetPath></targetPath>
-                        <directory>${project.build.directory}</directory>
-                        <include>${project.build.finalName}.war</include>
-                    </resource>                    
-                </resources>
-            </configuration>
-        </plugin>
-    </plugins>
-</build>
+    <build>
+        <plugins>
+            <!-- Maven WAR Plugin -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-war-plugin</artifactId>
+                <version>3.3.2</version>
+                <configuration>
+                    <failOnMissingWebXml>false</failOnMissingWebXml>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+</project>
