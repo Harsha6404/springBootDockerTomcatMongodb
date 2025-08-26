@@ -1,57 +1,53 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
-
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 
+         http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <!-- Parent Spring Boot starter -->
+    <groupId>com.mvpjava</groupId>
+    <artifactId>springBootDockerTomcatMongodb</artifactId>
+    <version>1.0.0</version>
+    <packaging>war</packaging>
+
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>2.7.18</version> <!-- LTS and stable -->
-        <relativePath/> <!-- lookup parent from repository -->
+        <version>2.7.18</version> <!-- Use stable version -->
+        <relativePath/>
     </parent>
 
-    <groupId>com.example</groupId>
-    <artifactId>springBootDockerTomcatMongodb</artifactId>
-    <version>1.0.0</version>
-    <packaging>war</packaging> <!-- WAR packaging for Tomcat -->
-
-    <name>springBootDockerTomcatMongodb</name>
-    <description>Spring Boot app with Docker, Tomcat and MongoDB</description>
-
     <properties>
-        <java.version>11</java.version> <!-- Use 11 for better stability, can change to 17/21 -->
+        <java.version>11</java.version>
     </properties>
 
     <dependencies>
-        <!-- Web dependency -->
+        <!-- Spring Boot Web (for REST APIs / Controllers) -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
 
-        <!-- MongoDB dependency -->
+        <!-- Spring Boot MongoDB -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-data-mongodb</artifactId>
         </dependency>
 
-        <!-- Servlet container (Tomcat) -->
+        <!-- Needed for WAR deployment on external Tomcat -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-tomcat</artifactId>
-            <scope>provided</scope> <!-- Provided because Tomcat will run it -->
+            <scope>provided</scope>
         </dependency>
 
-        <!-- Optional: Lombok for boilerplate code -->
+        <!-- Optional: Lombok (to reduce boilerplate code) -->
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
             <optional>true</optional>
         </dependency>
 
-        <!-- Testing -->
+        <!-- For Testing -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
@@ -61,7 +57,18 @@
 
     <build>
         <plugins>
-            <!-- Spring Boot Maven Plugin -->
+            <!-- Compiler Plugin -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.10.1</version>
+                <configuration>
+                    <source>11</source>
+                    <target>11</target>
+                </configuration>
+            </plugin>
+
+            <!-- Spring Boot Plugin -->
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
